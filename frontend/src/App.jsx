@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import {BrowserRouter, Routes, Route, Navigate} from 'react-router'
 import LoginPage from './pages/auth/LoginPage.jsx'
 import SignUpPage from './pages/auth/SignUpPage.jsx'
@@ -8,11 +7,13 @@ import MyPollsPage from './pages/dashboard/MyPollsPage.jsx'
 import BookmarkedPages from './pages/dashboard/BookmarkedPages.jsx'
 import './App.css'
 import VotedPage from './pages/dashboard/VotedPage'
+import UserProvider from './context/UserContext.jsx'
 
 function App() {
 
   return (
    <div>
+    <UserProvider>
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Root />} />
@@ -23,9 +24,9 @@ function App() {
         <Route path="/my-polls" exact element={<MyPollsPage />} />
         <Route path="/voted-polls" exact element={<VotedPage />} /> 
         <Route path="/bookmarks" exact element={<BookmarkedPages />} /> 
-
       </Routes>
     </BrowserRouter>
+    </UserProvider>
    </div>
   )
 }

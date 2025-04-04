@@ -1,9 +1,12 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import pic from "../../assets/bg-signup.png";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import { FaRegEye } from "react-icons/fa";
 import { LuEyeClosed } from "react-icons/lu";
 import { validateEmail } from "../../utils/Validate.js";
+import axiosInstance from '../../utils/axiosInstance.js';
+import { API_PATHS } from "@/utils/apiPaths";
+import { UserContext } from "@/context/UserContext";
 
 function LoginPage() {
   const [email, setEmail] = useState("");
@@ -11,7 +14,8 @@ function LoginPage() {
   const [showPassword, setShowPassword] = useState(false);
   // const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
-
+  const navigate = useNavigate();
+  const {updateUser} = useContext(UserContext);
 
 
 //handle login from submit...
@@ -28,8 +32,29 @@ function LoginPage() {
     setError("");
 
     //login function...
-  };
+    try {
+      const response = await axiosInstance.post(API_PATHS.AUTH.LOGIN,{
+        email,
+        password,
+      });
+      const {token, user} = response.data;
+      if(token){
+        console.log({token, user});
+        localStorage.setItem('token', token);
+        updateUser(user);
+        navigate("/dashboard");
+      }
 
+    } catch (error) {
+      console.log(error);
+      if(error.response && error.response.data.message){
+        setError(error.response.data.message);
+      }else{
+        setError("Something went wrong");
+      }
+      
+    }
+  }
   //to toggle show password funnctionality...
   const toggleShowPassword = () => {
     setShowPassword(!showPassword);

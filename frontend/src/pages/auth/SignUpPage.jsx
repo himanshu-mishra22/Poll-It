@@ -1,16 +1,22 @@
-import React from "react";
+import React, { useContext, useState } from "react";
 import pic from "../../assets/bg-signup.png";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import ProfilePhotoSelector from "../../components/ProfilePhotoSelector.jsx";
 import { validateEmail } from "../../utils/Validate.js";
+import axiosInstance from "../../utils/axiosInstance.js";
+import { API_PATHS } from "../../utils/apiPaths.js";
+import { UserContext } from "../../context/UserContext.jsx";
+import uploadImage from "../../utils/uploadImage.js";
 
 function SignUpPage() {
-  const [name, setName] = React.useState("");
-  const [username, setUsername] = React.useState("");
-  const [email, setEmail] = React.useState("");
-  const [password, setPassword] = React.useState("");
-  const [profilePhoto, setProfilePhoto] = React.useState(null);
-  const [error, setError] = React.useState("");
+  const [name, setName] = useState("");
+  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [profilePic, setprofilePic] = useState(null);
+  const [error, setError] = useState("");
+  const navigate = useNavigate();
+  const {updateUser} = useContext(UserContext);
 
   const handleSignup = async (e) => {
     e.preventDefault();
@@ -32,7 +38,50 @@ function SignUpPage() {
     }
     setError("");
 
-    //login function...
+    //signup function...
+    try {
+    // uploading image to server...
+    let imgUrl = "";
+    if(profilePic) {
+      const imgUploadRes = await uploadImage(profilePic);
+      imgUrl = imgUploadRes.imgUrl || "";
+      // console.log(imgUrl);
+      // console.log(imgUploadRes);
+    }
+
+    // console.log("Payload being sent:", {
+    //   name,
+    //   username,
+    //   email,
+    //   password,
+    //   profilePic: imgUrl,
+    // });
+
+      const response = await axiosInstance.post(API_PATHS.AUTH.REGISTER, {
+        name,
+        username,
+        email,
+        password,
+        profilePic: imgUrl,
+      });
+
+      const { token, user } = response.data;
+      if(token){
+        localStorage.setItem("token", token);
+        updateUser(user);
+        navigate("/dashboard");
+      }
+      // console.log("signup");
+      
+      
+    }  catch (error) {
+      // console.log(error);
+      if(error.response && error.response.data.message){
+        setError(error.response.data.message);
+      }else{
+        setError("Something went wrong");
+      }
+    }
   };
 
   return (
@@ -47,8 +96,8 @@ function SignUpPage() {
         <form className="w-3/4 space-y-5" onSubmit={handleSignup}>
           <div className="mb-4">
             <ProfilePhotoSelector
-              image={profilePhoto}
-              setImage={setProfilePhoto}
+              image={profilePic}
+              setImage={setprofilePic}
             />
           </div>
           <div>
