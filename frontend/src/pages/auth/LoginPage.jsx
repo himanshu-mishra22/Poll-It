@@ -115,7 +115,7 @@ function LoginPage() {
             {error && <p className="text-red-500 text-sm pb-2.5">{error}</p>}
             <button
               type="submit"
-              className="w-full p-2 rounded-md bg-[#1a3d2e] hover:bg-green-800"
+              className="w-full p-2 rounded-md bg-[#1a3d2e] hover:bg-[#DF6D14] hover:text-[#1a3d2e]"
             >
               Sign In
             </button>
@@ -125,7 +125,7 @@ function LoginPage() {
           New here?{" "}
           <Link
             to={"/signup"}
-            className="text-[#1a3d2e] hover:text-green-800 underline"
+            className="text-[#1a3d2e] hover:text-[#DF6D14] underline"
           >
             Sign Up
           </Link>

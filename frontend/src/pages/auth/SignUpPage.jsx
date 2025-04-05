@@ -142,14 +142,14 @@ function SignUpPage() {
           {error && <p className="text-red-500 text-sm pb-2.5">{error}</p>}
           <button
             type="submit"
-            className="w-full p-1 rounded-md bg-green-600 hover:bg-green-700"
+            className="w-full p-1 rounded-md bg-green-600 hover:bg-[#DF6D14] hover:text-[#1a3d2e]"
           >
             Sign Up
           </button>
         </form>
         <p className="mt-6 text-gray-300">
           Already have an account?{" "}
-          <Link to={"/login"} className="text-green-400 underline">
+          <Link to={"/login"} className="text-green-400 underline hover:text-[#DF6D14]">
             Sign In
           </Link>
         </p>
