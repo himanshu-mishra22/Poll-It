@@ -23,7 +23,7 @@ const SideMenu = ({ activeMenu }) => {
   };
 
   return (
-    <div className="hidden md:block md:w-64 md:h-[calc(100vh-61px)] bg-slate-50/50 border-r border-slate-100/70 p-5 sticky top-[61px] z-20">
+    <div className="w-64 h-[calc(100vh-61px)] bg-slate-50/50 border-r border-slate-100/70 p-5 sticky top-[61px] z-20">
       {SIDE_MENU_DATA.map((item) => (
         <button
           key={item.id}
