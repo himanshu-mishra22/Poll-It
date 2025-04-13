@@ -5,10 +5,14 @@ import { UserContext } from "@/context/UserContext";
 import { POLL_TYPE } from "@/utils/pollType";
 import OptionInput from "@/components/OptionInput";
 import OptionImage from "@/components/OptionImage";
+import uploadImage from "@/utils/uploadImage";
+import axiosInstance from "@/utils/axiosInstance";
+import { API_PATHS } from "@/utils/apiPaths";
 
 function CreatePollPage() {
+
   useUserAuth();
-  const { user } = useContext(UserContext);
+  const { user, onPollCreateOrDelete } = useContext(UserContext);
   const [pollData, setPollData] = useState({
     question: "",
     type: "",
@@ -24,8 +28,50 @@ function CreatePollPage() {
     }));
   };
 
+  const updateImagelink = async(imageOptions)=>{
+    const optionPromises = imageOptions.map(async (imageOption)=>{
+      try {
+        const imgUploadRes = await uploadImage(imageOption.file);
+        return imgUploadRes.imgUrl || "";
+      } catch (error) {
+        //toast
+        alert("Image uploading failed");
+        console.log(error);
+        
+      }
+    });
+
+    const optionArray= await Promise.all(optionPromises);
+    return optionArray;
+  }
+
+  const clearData = ()=>{
+    setPollData({
+      question: "",
+      type: "",
+      options: [],
+      imageOptions: [],
+      error: "",
+    })
+  }
+
+  const handleOptions = async()=>{
+    switch (pollData.type){
+      case "single-choice":
+        return pollData.options;
+
+      case "image-based": {
+        const option = await updateImagelink(pollData.imageOptions);
+        return option;
+      }
+
+      default:
+        return [];
+    }
+  }
+
   //creating new poll
-  const handleCreatePoll = ()=>{
+  const handleCreatePoll = async ()=>{
     const {question,type,options,imageOptions,error} = pollData;
 
     //validation
@@ -45,6 +91,33 @@ function CreatePollPage() {
     }
 
     handleValueChange("error", "");
+
+    const optionData = await handleOptions();
+
+    try{
+      const res = await axiosInstance.post(API_PATHS.POLLS.CREATE,{
+        question,
+        type,
+        options: optionData,
+        creatorId: user._id,
+      });
+      if(res){
+        //toast
+        alert("Poll created");
+        // console.log(res);
+        onPollCreateOrDelete();
+        clearData();
+      }
+    }catch(error){
+      console.log(error);
+      if(error.response && error.response.data.message){
+        handleValueChange("error", error.response.data.message);
+      }else{
+        handleValueChange("Something went wrong");
+      }
+    }
+
+
   }
 
   return (
@@ -132,7 +205,7 @@ function CreatePollPage() {
         )}
 
         <button
-        className="bg-green-600 rounded-md w-15 p-2 py-2 mt-6 hover:bg-green-700"
+        className="bg-green-600 rounded-md w-full p-2 py-2 mt-6 hover:bg-green-700"
         onClick={handleCreatePoll}
         >
           Create

@@ -29,7 +29,7 @@ const useUserAuth = () => {
         return ()=>{
             isMounted = false;
         };
-    },[user,updateUser,clearUser]);
+    },[user,updateUser,clearUser,navigate]);
   return (
     <div>useUserAuth</div>
   )

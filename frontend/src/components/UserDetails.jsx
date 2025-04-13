@@ -1,5 +1,6 @@
 import React from 'react'
 import StatsInfo from './StatsInfo'
+import ChatAvatar from './ChatAvatar'
 
 const UserDetails = (
     {profileImageUrl,
@@ -13,11 +14,13 @@ const UserDetails = (
     <div className='bg-slate-100/50 rounded-lg mt-16 overflow-hidden'>
         <div className='w-full h-32 bg-profile-bg--img bg-cover flex justify-center bg-sky-500 relative'>
             <div className='absolute -bottom-10 rounded-full overfolw-hidden border-2 border-primary'>
-                <img
+               {profileImageUrl ?  <img
                  src={profileImageUrl || null}
                  alt="Profile Picture" 
                  className='w-20 h-20 bg-slate-400 rounded-full'
                  />
+                :
+                <ChatAvatar name={name} width='w-20' height='h-20' style='text-xl' />}
             </div>
         </div>
         <div className='mt-12 px-5'>

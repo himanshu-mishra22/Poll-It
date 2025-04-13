@@ -6,7 +6,7 @@ import useUserAuth from "@/hooks/useUserAuth";
 import React, { useContext } from "react";
 
 const DashBoard = ({ children, activeMenu }) => {
-    const { user } = useContext(UserContext);
+    const { user, onPollCreateOrDelete } = useContext(UserContext);
   useUserAuth();
   return (
     <div>
