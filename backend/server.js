@@ -10,7 +10,7 @@ dotenv.config();
 
 //middlewares
 app.use(cors({
-    origin:'*',
+    origin:'https://poll-it-rust.vercel.app',
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     allowedHeaders: ['Content-Type', 'Authorization'],
     credentials: true
