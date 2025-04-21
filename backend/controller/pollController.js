@@ -93,7 +93,7 @@ exports.getAllPolls = async(req,res)=>{
         .sort({createdAt : -1});
 
         const updatedPolls = polls.map((poll)=>{
-            const userHasVoted = poll.voters.some((voterId)=>voterId.equals(userId));
+            const userHasVoted = poll.voters.some((voterId)=>voterId === userId);
             return {
                 ...poll.toObject(),
                 userHasVoted,
@@ -200,7 +200,12 @@ exports.votedPolls = async(req,res)=>{
 exports.getPollById = async(req,res)=>{
     const {id} = req.params;
     try {
-        const poll = await Poll.findById(id).populate("creator", "username email");
+        const poll = await Poll.findById(id)
+        .populate("creator", "username email")
+        .populate({
+            path: "responses.voterId",
+            select:"username profilePic name"
+        })
         if(!poll){
             return res.status(404).json({message:"Poll not found"});
         }
@@ -299,7 +304,7 @@ exports.bookmarkPoll = async(req,res)=>{
         const isBookmarked = user.bookmarks.includes(id);
         if(isBookmarked){
            //remove from bookmarked
-           user.bookmarks  = user.bookmarks.filter((pollId) => pollId.toString !== id );
+           user.bookmarks  = user.bookmarks.filter((pollId) => pollId.toString() !== id );
            await user.save();
            return res.status(200).json({
             message: "Poll unbookmarked",

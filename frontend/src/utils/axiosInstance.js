@@ -4,7 +4,7 @@ import {BASE_URL} from './apiPaths.js';
 
 const axiosInstance = axios.create({
   baseURL: BASE_URL,
-  timieout: 10000,
+  timeout: 10000,
   headers: {
     "Content-Type": "application/json",
     Accept: "application/json",
@@ -30,7 +30,7 @@ axiosInstance.interceptors.response.use((response) => {
     //tokenn expired or invalid
     //redirect to login page
     // localStorage.removeItem("token");
-    window.location.href = "/login";
+  window.location.href = "/login";
   }else if (error.response.status === 500) {
     console.log("Server error", error.response.data.message);
 

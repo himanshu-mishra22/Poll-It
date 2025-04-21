@@ -7,6 +7,9 @@ import React, { useContext } from "react";
 
 const DashBoard = ({ children, activeMenu }) => {
     const { user, onPollCreateOrDelete } = useContext(UserContext);
+    console.log(user);
+    
+    
   useUserAuth();
   return (
     <div>
@@ -19,13 +22,14 @@ const DashBoard = ({ children, activeMenu }) => {
         <div className="grow mx-5">{children}</div>
         <div className="hidden md:block mr-5">
             <UserDetails
-            profileImageUrl={user && user.profilePic}
+            profileImageUrl={user&& user.profilePic}
             name={user && user.name}
             username={user && user.username}
             totalPollsBookmarked={user && user.totalPollsBookmarked}
             totalPollsCreated={user && user.totalPollsCreated}
             totalPollsVotes={user && user.totalPollsVotes}
             />
+            
         </div>
       </div>
     </div>

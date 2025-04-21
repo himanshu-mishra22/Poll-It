@@ -10,10 +10,12 @@ const useUserAuth = () => {
 
     useEffect(()=>{
         if(user) return;
+        // console.log("first");
         let isMounted = true;
         const fetchUserInfo = async() =>{
             try {
-               const response = await axiosInstance.get (API_PATHS.AUTH.GET_USER_INFO);
+               const response = await axiosInstance.get(API_PATHS.AUTH.GET_USER_INFO);
+               console.log(response);
                if(isMounted && response.data){
                 updateUser(response.data);
                }

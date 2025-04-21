@@ -26,5 +26,5 @@ app.use('/uploads', express.static('uploads'));
 
 app.listen(process.env.BACKEND_PORT, () => {
     connectDB();
-  console.log(`erver is running on ${process.env.BACKEND_PORT}`);
+  console.log(`Server is running on ${process.env.BACKEND_PORT}`);
 });

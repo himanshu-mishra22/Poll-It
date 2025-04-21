@@ -1,7 +1,3 @@
-import Navbar from "@/components/Navbar";
-import SideMenu from "@/components/SideMenu";
-import UserDetails from "@/components/UserDetails";
-import { UserContext } from "@/context/UserContext";
 import useUserAuth from "@/hooks/useUserAuth";
 import React, { useContext, useEffect, useState } from "react";
 import DashBoard from "./DashBoard";
@@ -12,9 +8,11 @@ import FilterHeader from "@/components/FilterHeader";
 import axiosInstance from "@/utils/axiosInstance";
 import { API_PATHS } from "@/utils/apiPaths";
 import PollCard from "@/components/PollCard";
+import { UserContext } from "@/context/UserContext";
+import InfiniteScroll from "react-infinite-scroll-component";
 
 function HomePage() {
-  // const { user } = useContext(UserContext);
+  const { user } = useContext(UserContext);
   useUserAuth();
   const navigate = useNavigate();
   const [allPolls, setAllPolls] = useState([]);
@@ -32,6 +30,7 @@ function HomePage() {
       const response = await axiosInstance.get(
         `${API_PATHS.POLLS.GET_ALL_POLLS}?page=${overridePage}&limit=${PAGE_SIZE}&type=${filterType}`
       );
+      console.log(response);
 
       if (response.data?.polls?.length > 0) {
         setAllPolls((prevPolls) =>
@@ -70,6 +69,11 @@ function HomePage() {
     return () => {};
   }, [page]);
 
+
+  const loadMorePolls = ()=>{
+    setPage((prev)=>prev+1);
+  }
+
   return (
     <DashBoard activeMenu="Dashboard">
       <div className="my-5 mx-auto">
@@ -78,6 +82,15 @@ function HomePage() {
           filterType={filterType}
           setFilterType={setFilterType}
         />
+
+      {/* infinite scroll */} 
+      <InfiniteScroll
+      dataLength={allPolls.length}
+      next={loadMorePolls}
+      hasMore={hasMore}
+      loader={<h4 className="text-sm text-black font-medium text-center p-3 bg-gray-100 rounded-lg">Loading...</h4>}
+      endMessage={<p className="text-sm text-black font-medium text-center p-3 bg-gray-100 rounded-lg">No more polls to display.</p>}
+      >
         {allPolls.map((poll) => (
           <PollCard
             key={`dashboard_${poll._id}`}
@@ -95,6 +108,7 @@ function HomePage() {
             createdAt={poll.createdAt || false}
           />
         ))}
+        </InfiniteScroll>
       </div>
     </DashBoard>
   );

@@ -8,7 +8,7 @@ import BookmarkedPages from './pages/dashboard/BookmarkedPages.jsx'
 import './App.css'
 import VotedPage from './pages/dashboard/VotedPage'
 import UserProvider from './context/UserContext.jsx'
-import DashBoard from './pages/dashboard/DashBoard.jsx'
+
 
 function App() {
 

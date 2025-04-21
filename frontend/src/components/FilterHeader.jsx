@@ -35,21 +35,26 @@ const FilterHeader = ({ title, filterType, setFilterType }) => {
 
       {open && (
         <div className=" flex flex-wrap gap-4 bg-green-500 p-4 rounded-l-lg rounded-b-lg">
-            {[{
-                label:"All",
-                value:""},
-                ...POLL_TYPE].map((type)=>(
-                    <button 
-                    key={type.value}
-                    className={`text-[12px] px-4 py-1 rounded-lg text-nowrap ${
-                        filterType === type.value ? "bg-yellow-500 text-white" : "bg-white text-[13px]"
-                    }`}
-                    onClick={() => setFilterType(type.value)}
-                    >
-                        {type.label}
-                    </button>
-                ))}
-                </div>
+          {[
+            {
+              label: "All",
+              value: "",
+            },
+            ...POLL_TYPE,
+          ].map((type) => (
+            <button
+              key={type.value}
+              className={`text-[12px] px-4 py-1 rounded-lg text-nowrap ${
+                filterType === type.value
+                  ? "bg-yellow-500 text-white"
+                  : "bg-white text-[13px]"
+              }`}
+              onClick={() => setFilterType(type.value)}
+            >
+              {type.label}
+            </button>
+          ))}
+        </div>
       )}
     </div>
   );

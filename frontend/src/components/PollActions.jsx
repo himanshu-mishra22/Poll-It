@@ -30,15 +30,39 @@ export const PollActions = ({
             </div>
         )}
 
+        {isMyPoll && !pollClosed && (
+            <button
+            className='w-20 h-10 text-orange-500 bg-orange-500/20 hover:bg-orange-500 hover:text-white hover:border-orange-100'
+            onClick={onClosePoll}
+            disabled={loading}
+            >
+                
+                {/* {JSON.stringify(isMyPoll)} */}
+                Close
+            </button>
+        )}
+
+            {isMyPoll && (
+            <button
+            className='w-20 h-10 text-red-500 bg-orange-500/20 hover:bg-red-500 hover:text-white hover:border-orange-100'
+            onClick={onDelete}
+            disabled={loading}
+            >
+                
+                {/* {JSON.stringify(isMyPoll)} */}
+                Delete
+            </button>
+         )} 
+
         <button className='text-[20px] text-slate-300 cursor-pointer' onClick={toggleBookmark}>
             {isBookmarked ? (
-                <FaBookmark classsName="text-green-300"/>
+                <FaBookmark className="text-green-300"/>
             ): (
                 <FaRegBookmark/>
             )}
         </button>
 
-        { inputCaptured && !isVoteComplete && (
+        {inputCaptured && !isVoteComplete && (
             <button className='w-20 h-10 bg-green-500 text-black ml-auto'
             onClick={handleVoteClick}
             disabled={loading}
