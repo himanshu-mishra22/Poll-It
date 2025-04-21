@@ -11,9 +11,9 @@ const UserDetails = (
         totalPollsBookmarked}
 ) => {
   return (
-    <div className='bg-slate-100/50 rounded-lg mt-16 overflow-hidden'>
-        <div className='w-full h-32 bg-profile-bg--img bg-cover flex justify-center bg-sky-500 relative'>
-            <div className='absolute -bottom-10 rounded-full overfolw-hidden border-2 border-primary'>
+    <div className='bg-slate-100/50 rounded-lg mt-16 sticky top-[61px] z-20'>
+        <div className='w-full h-32 bg-[url("assets/info-bg.jpg")] bg-cover flex justify-center bg-[#1a3d2e] relative'>
+            <div className='absolute -bottom-10 rounded-full overflow-hidden border-2 border-primary'>
                {profileImageUrl ? ( <img
                  src={profileImageUrl || null}
                  alt="Profile Picture" 

@@ -5,9 +5,7 @@ import { HiMiniPlus } from "react-icons/hi2";
 const OptionImage = ({ imageList, setImageList }) => {
   //adding image function
   const handleAddImage = (event) => {
-    // console.log(event);
     const file = event.target.files[0];
-    // console.log(file);
     if (file && imageList.length < 4) {
       const reader = new FileReader();
       reader.onload = () => {

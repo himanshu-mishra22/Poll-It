@@ -8,12 +8,12 @@ const FilterHeader = ({ title, filterType, setFilterType }) => {
   return (
     <div>
       <div className="flex items-center justify-between">
-        <h2 className="md:text-lg font-medium text-black">{title}</h2>
+        <h2 className="md:text-lg font-medium text-[#1a3d2e]">{title}</h2>
 
         <button
           className={`flex items-center gap-3 text-sm py-2 ${
             open ? "rounded-t-lg" : "rounded-lg"
-          } bg-green-500 p-3`}
+          } bg-[#1a3d2e] text-[#DF6D14] p-3`}
           onClick={() => {
             if (filterType !== "") setFilterType("");
             setOpen(!open);
@@ -34,7 +34,7 @@ const FilterHeader = ({ title, filterType, setFilterType }) => {
       </div>
 
       {open && (
-        <div className=" flex flex-wrap gap-4 bg-green-500 p-4 rounded-l-lg rounded-b-lg">
+        <div className=" flex flex-wrap gap-4 bg-[#1a3d2e] p-4 rounded-l-lg rounded-b-lg">
           {[
             {
               label: "All",
@@ -46,8 +46,8 @@ const FilterHeader = ({ title, filterType, setFilterType }) => {
               key={type.value}
               className={`text-[12px] px-4 py-1 rounded-lg text-nowrap ${
                 filterType === type.value
-                  ? "bg-yellow-500 text-white"
-                  : "bg-white text-[13px]"
+                  ? "bg-[#DF6D14] text-[#1a3d2e]"
+                  : "bg-white text-[#1a3d2e]"
               }`}
               onClick={() => setFilterType(type.value)}
             >

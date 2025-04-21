@@ -27,9 +27,6 @@ axiosInstance.interceptors.response.use((response) => {
   return response;
 }, (error) => {
   if (error.response.status === 401) {
-    //tokenn expired or invalid
-    //redirect to login page
-    // localStorage.removeItem("token");
   window.location.href = "/login";
   }else if (error.response.status === 500) {
     console.log("Server error", error.response.data.message);

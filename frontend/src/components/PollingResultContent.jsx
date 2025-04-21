@@ -5,8 +5,6 @@ import ChatAvatar from "./ChatAvatar";
 dayjs.extend(relativeTime);
 
 const PollingResultContent = ({ type, options, voters, responses }) => {
-    console.log(responses);
-    
   switch (type) {
     case "single-choice":
     case "yes/no":
@@ -57,7 +55,6 @@ const PollingResultContent = ({ type, options, voters, responses }) => {
       return null;
   }
 
-  //   return <div>PollingResultContent</div>;
 };
 
 const PollOptionResult = ({ label, optionVotes, totalVotes }) => {
@@ -109,7 +106,7 @@ const OpenEndedPollResponse = ({
           />
         )}
 
-        <p className="text-[13px] text-black">
+        <p className="text-[13px] text-[#1a3d2e]">
           {userFullName}{" "}
           <span className="mx-1 text-[10px] text-slate-500">.</span>
           <span className="text-[10px] text-slate-500">{createdAt}</span>

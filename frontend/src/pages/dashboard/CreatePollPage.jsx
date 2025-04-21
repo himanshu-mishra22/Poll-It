@@ -8,6 +8,7 @@ import OptionImage from "@/components/OptionImage";
 import uploadImage from "@/utils/uploadImage";
 import axiosInstance from "@/utils/axiosInstance";
 import { API_PATHS } from "@/utils/apiPaths";
+import toast from "react-hot-toast";
 
 function CreatePollPage() {
 
@@ -36,7 +37,7 @@ function CreatePollPage() {
       } catch (error) {
         //toast
         alert("Image uploading failed");
-        console.log(error);
+        
         
       }
     });
@@ -109,7 +110,7 @@ function CreatePollPage() {
         clearData();
       }
     }catch(error){
-      console.log(error);
+      toast.error('Oh snap! Some error occurred')
       if(error.response && error.response.data.message){
         handleValueChange("error", error.response.data.message);
       }else{
@@ -123,11 +124,11 @@ function CreatePollPage() {
   return (
     <DashBoard activeMenu="Create Poll">
       <div className="bg-gray-100/80 my-5 p-5 rounded-lg mx-auto">
-        <h2 className="text-lg text-black font-medium">Create Poll</h2>
+        <h2 className="text-lg text-[#1a3d2e] font-medium">Create Poll</h2>
         <div className="mt-3">
           <label className="text-xs font-medium text-slate-600">Question</label>
           <textarea
-            className="w-full text-[13px] text-black outline-none
+            className="w-full text-[13px] text-[#1a3d2e] outline-none
           bg-slate-200/80 p-2 rounded-md mt-2"
             placeholder="What's on your mind?"
             rows={4}
@@ -149,7 +150,7 @@ function CreatePollPage() {
                 className={`
                ${
                  pollData.type === item.value
-                   ? "text-white bg-black border-black"
+                   ? "text-[#DF6D14] bg-[#1a3d2e] border-[#1a3d2e] rounded-md p-[5px]"
                    : "border-sky-100"
                } cursor-pointer`}
                 onClick={() => {
@@ -205,7 +206,7 @@ function CreatePollPage() {
         )}
 
         <button
-        className="bg-green-600 rounded-md w-full p-2 py-2 mt-6 hover:bg-green-700"
+        className=" rounded-md w-full p-2 py-2 mt-6 bg-[#1a3d2e] hover:bg-[#DF6D14] hover:text-[#1a3d2e] text-[#DF6D14]"
         onClick={handleCreatePoll}
         >
           Create

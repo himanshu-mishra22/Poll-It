@@ -61,7 +61,7 @@ exports.createPoll = async(req, res)=>{
         res.status(201).json(newPoll);
         
     } catch (error) {
-        console.log(error);
+        // 
         res.status(500).json({message:error.message});
         
     }
@@ -144,7 +144,7 @@ exports.getAllPolls = async(req,res)=>{
             });
 
     } catch (error) {
-        console.log(error);
+        // 
         res.status(500).json({message:error.message});
     }
 
@@ -192,7 +192,7 @@ exports.votedPolls = async(req,res)=>{
 
 
     } catch (error) {
-        console.log(error);
+        // 
         res.status(500).json({message:error.message}); 
     }
 }
@@ -214,7 +214,7 @@ exports.getPollById = async(req,res)=>{
 
 
     } catch (error) {
-        console.log(error);
+        // 
         res.status(500).json({message:error.message}); 
     }
 }
@@ -259,7 +259,7 @@ exports.votePoll = async(req,res)=>{
         res.status(200).json(poll);
         
     } catch (error) {
-        console.log(error);
+        // 
         res.status(500).json({message:error.message}); 
     }
 }
@@ -291,7 +291,7 @@ exports.closePoll = async(req,res)=>{
 exports.bookmarkPoll = async(req,res)=>{
     const {id} = req.params;
     const userId = req.user._id;
-    console.log(userId, id);
+    // console.log(userId, id);
     
     try {
         const user = await User.findById(userId);
@@ -321,7 +321,7 @@ exports.bookmarkPoll = async(req,res)=>{
             });
 
     } catch (error) {
-        console.log(error);
+        
         res.status(500).json({message:error.message}); 
     }
 }
@@ -354,7 +354,7 @@ exports.getBookmarkedPolls = async(req,res)=>{
         res.status(200).json({bookmarks: updatePolls});
         
     } catch (error) {
-        console.log(error);
+        
         res.status(500).json({message:error.message}); 
     }
 }
@@ -380,7 +380,7 @@ exports.deletePoll = async(req,res)=>{
         res.status(200).json({message: "Poll deleted successfully"});
         
     } catch (error) {
-        console.log(error);
+        
         res.status(500).json({message:error.message});
     }
 }

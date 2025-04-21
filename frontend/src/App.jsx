@@ -8,6 +8,7 @@ import BookmarkedPages from './pages/dashboard/BookmarkedPages.jsx'
 import './App.css'
 import VotedPage from './pages/dashboard/VotedPage'
 import UserProvider from './context/UserContext.jsx'
+import { Toaster } from 'react-hot-toast';
 
 
 function App() {
@@ -16,6 +17,7 @@ function App() {
    <div>
     <UserProvider>
     <BrowserRouter>
+    <Toaster position="top-right" reverseOrder={false} />
       <Routes>
         <Route path="/" element={<Root />} />
         <Route path="/login" exact element={<LoginPage />} />

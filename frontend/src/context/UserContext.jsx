@@ -43,7 +43,6 @@ const UserProvider = ({ children }) => {
   const toggleBookmarkId = (id) => {
     const bookmarks = user?.bookmarks || [];
     const index = bookmarks.indexOf(id);
-    console.log(id, user, bookmarks);
 
     if (index === -1) {
       setUser((prev) => ({

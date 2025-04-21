@@ -6,6 +6,7 @@ import PollContent from "./PollContent";
 import axiosInstance from "@/utils/axiosInstance";
 import { API_PATHS } from "@/utils/apiPaths";
 import PollingResultContent from "./PollingResultContent";
+import toast from "react-hot-toast";
 
 const PollCard = ({
   pollId,
@@ -23,24 +24,9 @@ const PollCard = ({
   createdAt,
 }) => {
   const { user, onUserVoted, toggleBookmarkId,onPollCreateOrDelete } = useContext(UserContext);
-  console.log( "id",pollId,
-    "ques",question,
-    "tye",type,
-    "opt",options,
-    "voters",voters,
-    "responses",responses,
-    "crePix",creatorProfilePic,
-    "creName",creatorName,
-    "creusername",creatorUsername,
-    "userHasVoted",userHasVoted,
-    "isMyPoll",isMyPoll,
-    "isPollClosed",isPollClosed,
-    createdAt,);
-
   const getPollBookmarked = (pollId, userBookmark) => {
     return userBookmark.includes(pollId);
   };
-
   const [selectOptionIndex, setSelectOptionIndex] = useState(-1);
   const [rating, setRating] = useState(0);
   const [userRes, setUserRes] = useState("");
@@ -78,7 +64,6 @@ const PollCard = ({
       const response = await axiosInstance.get(
         API_PATHS.POLLS.GET_BY_ID(pollId)
       );
-      console.log(response);
 
       if (response.data) {
         const pollDetails = response.data;
@@ -89,7 +74,7 @@ const PollCard = ({
         });
       }
     } catch (error) {
-      console.log(error);
+      toast.error('Oh snap! Some error occurred')
     }
   };
 
@@ -105,9 +90,9 @@ const PollCard = ({
       setIsVoted(true);
       onUserVoted();
       //toast
-      alert("poll voted successfully");
+      toast.success('Poll Voted')
     } catch (error) {
-      console.log(error.response?.data?.message || "Error submitting the vote");
+      toast.error('Poll already voted')
     }
   };
 
@@ -117,10 +102,12 @@ const PollCard = ({
       const response = await axiosInstance.post(API_PATHS.POLLS.BOOKMARK(pollId));
       toggleBookmarkId(pollId);
       setPollBookmarked((prev)=> !prev);
+      console.log(response);
+      
       //toast
-      alert("poll bookmarked successfully");
+      toast.success(response.data.message)
     } catch (error) {
-      console.log(error);
+      toast.error('Oh snap! Some error occurred')
     }
   }
 
@@ -134,10 +121,10 @@ const PollCard = ({
       if(response.data){
         setPollClosed(true);
         //toast
-        alert("poll closed successfully");
+        toast.success('Poll closed')
       }
     } catch (error) {
-      console.log(error);
+      toast.error('Oh snap! Some error occurred')
       
     }
   }
@@ -148,10 +135,10 @@ const PollCard = ({
         setPollDeleted(true);
         onPollCreateOrDelete();
         //toast
-        alert("poll deleted successfully");
+        toast.success('Poll deleted')
       }
     } catch (error) {
-      console.log(error);
+      toast.error('Oh snap! Some error occurred')
       
     }
   }
@@ -182,7 +169,7 @@ const PollCard = ({
         </div>
 
         <div className="ml-14 mt-3">
-          <p className="text-[15px] text-black leading-8">{question}</p>
+          <p className="text-[15px] text-[#1a3d2e] leading-8">{question}</p>
           <div className="mt-4">
             {isVoted || isPollClosed ? (
               <PollingResultContent

@@ -26,7 +26,6 @@ function VotedPage() {
       const response = await axiosInstance.get(
         `${API_PATHS.POLLS.VOTED_POLLS}?page=${overridePage}&limit=${PAGE_SIZE}`
       );
-      // console.log(response);
 
       if (response.data?.polls?.length > 0) {
         setVotedPolls((prevPolls) =>
@@ -39,7 +38,7 @@ function VotedPage() {
         setHasMore(false);
       }
     } catch (error) {
-      console.log(error);
+      
     } finally {
       setLoading(false);
     }

@@ -32,38 +32,34 @@ export const PollActions = ({
 
         {isMyPoll && !pollClosed && (
             <button
-            className='w-20 h-10 text-orange-500 bg-orange-500/20 hover:bg-orange-500 hover:text-white hover:border-orange-100'
+            className='w-20 h-10 text-orange-500 bg-orange-500/20 hover:bg-orange-500 hover:text-white hover:border-orange-100 rounded-md'
             onClick={onClosePoll}
             disabled={loading}
             >
-                
-                {/* {JSON.stringify(isMyPoll)} */}
                 Close
             </button>
         )}
 
             {isMyPoll && (
             <button
-            className='w-20 h-10 text-red-500 bg-orange-500/20 hover:bg-red-500 hover:text-white hover:border-orange-100'
+            className='w-20 h-10 text-red-500 bg-orange-500/20 hover:bg-red-500 hover:text-white hover:border-orange-100 rounded-md'
             onClick={onDelete}
             disabled={loading}
             >
-                
-                {/* {JSON.stringify(isMyPoll)} */}
                 Delete
             </button>
          )} 
 
         <button className='text-[20px] text-slate-300 cursor-pointer' onClick={toggleBookmark}>
             {isBookmarked ? (
-                <FaBookmark className="text-green-300"/>
+                <FaBookmark className="text-[#1a3d2e]"/>
             ): (
                 <FaRegBookmark/>
             )}
         </button>
 
         {inputCaptured && !isVoteComplete && (
-            <button className='w-20 h-10 bg-green-500 text-black ml-auto'
+            <button className='w-20 h-10 bg-[#1a3d2e] text-[#DF6D14] ml-auto rounded-md'
             onClick={handleVoteClick}
             disabled={loading}
             >

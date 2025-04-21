@@ -2,6 +2,7 @@ import { UserContext } from '@/context/UserContext'
 import { API_PATHS } from '@/utils/apiPaths';
 import axiosInstance from '@/utils/axiosInstance';
 import React, { useContext, useEffect } from 'react'
+import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router';
 
 const useUserAuth = () => {
@@ -10,17 +11,15 @@ const useUserAuth = () => {
 
     useEffect(()=>{
         if(user) return;
-        // console.log("first");
         let isMounted = true;
         const fetchUserInfo = async() =>{
             try {
                const response = await axiosInstance.get(API_PATHS.AUTH.GET_USER_INFO);
-               console.log(response);
                if(isMounted && response.data){
                 updateUser(response.data);
                }
             } catch (error) {
-                console.log("Failed user info: " ,error);
+                toast.error('Oh snap! Some error occurred')
                 if(isMounted){
                     clearUser();
                     navigate("/login");
@@ -33,7 +32,7 @@ const useUserAuth = () => {
         };
     },[user,updateUser,clearUser,navigate]);
   return (
-    <div>useUserAuth</div>
+    <></>
   )
 }
 

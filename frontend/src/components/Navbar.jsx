@@ -6,7 +6,7 @@ export default function Navbar({ activeMenu }) {
   const [openSideMenu, setOpenSideMenu] = useState(false);
 
   return (
-    <nav className="flex items-center justify-between p-4 bg-[#F1F0E9] shadow-md w-full z-20 relative">
+    <nav className="flex items-center  fixed justify-between p-4 bg-[#F1F0E9] shadow-md w-full z-20 ">
       {/* Hamburger for mobile */}
       <button
         className="block lg:hidden text-black"

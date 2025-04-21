@@ -9,6 +9,7 @@ import InfiniteScroll from "react-infinite-scroll-component";
 import CREATE_ICON from "@/assets/add-post.png";
 import { useNavigate } from "react-router";
 import EmptyCard from "@/components/EmptyCard";
+import toast from "react-hot-toast";
 
 function BookmarkedPages() {
   useUserAuth();
@@ -26,7 +27,6 @@ function BookmarkedPages() {
       const response = await axiosInstance.get(
         `${API_PATHS.POLLS.GET_BOOKMARKED}?page=${overridePage}&limit=${PAGE_SIZE}`
       );
-      // console.log(response);
 
       if (response.data?.bookmarks?.length > 0) {
         setBookmarkedPolls((prevPolls) =>
@@ -39,7 +39,7 @@ function BookmarkedPages() {
         setHasMore(false);
       }
     } catch (error) {
-      console.log(error);
+      toast.error('Oh snap! Some error occurred')
     } finally {
       setLoading(false);
     }

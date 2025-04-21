@@ -3,7 +3,7 @@ import { MdOutlineRadioButtonUnchecked, MdRadioButtonChecked } from "react-icons
 
 const OptionInputtile = ({ isSelected, label, onSelect }) => {
     const getColor = ()=>{
-        if(isSelected) return "text-white bg-green-700 border-green-500";
+        if(isSelected) return "bg-[#1a3d2e] border-green-500 text-[#DF6D14]";
         return "text-black bg-slate-200/800 border-slate-300";
     }
 
@@ -13,7 +13,7 @@ const OptionInputtile = ({ isSelected, label, onSelect }) => {
         onClick={onSelect}
     >
         {isSelected ? (
-            <MdRadioButtonChecked className="text-lg text-white"/>
+            <MdRadioButtonChecked className="text-lg text-[#DF6D14]"/>
         ):(
             <MdOutlineRadioButtonUnchecked className="text-lg text-slate-400" /> 
         )}
