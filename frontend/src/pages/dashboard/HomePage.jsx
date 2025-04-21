@@ -1,5 +1,5 @@
 import useUserAuth from "@/hooks/useUserAuth";
-import React, {useEffect, useState } from "react";
+import React, {useContext, useEffect, useState } from "react";
 import DashBoard from "./DashBoard";
 const PAGE_SIZE = 10; // Define the page size constant
 import FilterHeader from "@/components/FilterHeader";
@@ -7,9 +7,11 @@ import axiosInstance from "@/utils/axiosInstance";
 import { API_PATHS } from "@/utils/apiPaths";
 import PollCard from "@/components/PollCard";
 import InfiniteScroll from "react-infinite-scroll-component";
+import { UserContext } from "@/context/UserContext";
 
 function HomePage() {
   useUserAuth();
+  const {user} =useContext(UserContext)
   const [allPolls, setAllPolls] = useState([]);
   const [stats, setStats] = useState([]);
   const [page, setPage] = useState(1);
@@ -25,7 +27,8 @@ function HomePage() {
       const response = await axiosInstance.get(
         `${API_PATHS.POLLS.GET_ALL_POLLS}?page=${overridePage}&limit=${PAGE_SIZE}&type=${filterType}`
       );
-
+      console.log(response);
+      
       if (response.data?.polls?.length > 0) {
         setAllPolls((prevPolls) =>
           overridePage === 1
@@ -38,6 +41,7 @@ function HomePage() {
         setHasMore(false);
       }
     } catch (error) {
+      console.log(error);
       
     } finally {
       setLoading(false);
@@ -97,6 +101,7 @@ function HomePage() {
             creatorProfilePic={poll.creator.profilePic || null}
             creatorName={poll.creator.name}
             creatorUsername={poll.creator.username}
+            isMyPoll={poll.creator._id === user._id}
             userHasVoted={poll.userHasVoted || false}
             isPollClosed={poll.closed || false}
             createdAt={poll.createdAt || false}

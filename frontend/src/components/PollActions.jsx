@@ -12,6 +12,7 @@ export const PollActions = ({
     onClosePoll,
     onDelete,
 }) => {
+    console.log(isVoteComplete)
     const [loading,setLoading] = useState(false);
     const handleVoteClick = async()=>{
         setLoading(true);
@@ -24,9 +25,14 @@ export const PollActions = ({
 
   return (
     <div className='flex items-center gap-4'>
-        {(isVoteComplete || pollClosed) && (
+        {(pollClosed) && (
             <div className='text-[11px] font-medium text-slate-600 bg-sky-700/10 px-3 py-1 rounded-md'>
-                {pollClosed ? "Closed" : "Voted"}
+                {pollClosed ? "Closed" : ""}
+            </div>
+        )}
+        {(isVoteComplete) && (
+            <div className='text-[11px] font-medium text-slate-600 bg-sky-700/10 px-3 py-1 rounded-md'>
+                {isVoteComplete ? "Voted" : ""}
             </div>
         )}
 

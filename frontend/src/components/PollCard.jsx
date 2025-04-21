@@ -133,7 +133,7 @@ const PollCard = ({
       const response = await axiosInstance.delete(API_PATHS.POLLS.DELETE(pollId));
       if(response.data){
         setPollDeleted(true);
-        onPollCreateOrDelete();
+        onPollCreateOrDelete("delete");
         //toast
         toast.success('Poll deleted')
       }
@@ -156,7 +156,7 @@ const PollCard = ({
 
           <PollActions
             pollId={pollId}
-            isVotedComplete={isVoted}
+            isVoteComplete={isVoted}
             inputCaptured={userRes || selectOptionIndex >= 0 || rating}
             onVoteSubmit={handleVoteSubmit}
             isBookmarked={pollBookmarked}

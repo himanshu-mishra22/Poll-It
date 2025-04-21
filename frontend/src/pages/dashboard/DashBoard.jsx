@@ -12,12 +12,12 @@ const DashBoard = ({ children, activeMenu }) => {
     <div>
       <Navbar />
 
-      <div className="flex"> 
-        <div className="max-[1080px]:hidden">
+      <div className="flex "> 
+        <div className="max-[1080px]:hidden mt-[65px]">
           <SideMenu activeMenu={activeMenu} />
         </div>
-        <div className="grow mx-5">{children}</div>
-        <div className="hidden md:block mr-5">
+        <div className="grow mx-5 mt-[65px]">{children}</div>
+        <div className="hidden md:block mr-5 mt-[65px]">
             <UserDetails
             profileImageUrl={user&& user.profilePic}
             name={user && user.name}

@@ -104,7 +104,7 @@ function CreatePollPage() {
       });
       if(res){
         //toast
-        alert("Poll created");
+        toast.success('Poll Created!')
         // console.log(res);
         onPollCreateOrDelete();
         clearData();

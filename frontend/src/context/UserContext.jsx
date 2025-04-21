@@ -29,7 +29,7 @@ const UserProvider = ({ children }) => {
     const totalPollsCreated = user.totalPollsCreated || 0;
     updateUserStats(
       "totalPollsCreated",
-      type == "create" ? totalPollsCreated + 1 : totalPollsCreated - 1
+      type ==="create" ? totalPollsCreated + 1 : totalPollsCreated - 1
     );
   };
 

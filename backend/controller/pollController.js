@@ -93,12 +93,14 @@ exports.getAllPolls = async(req,res)=>{
         .sort({createdAt : -1});
 
         const updatedPolls = polls.map((poll)=>{
-            const userHasVoted = poll.voters.some((voterId)=>voterId === userId);
+            const userHasVoted = poll.voters.some((voterId)=> voterId.equals(userId));
             return {
                 ...poll.toObject(),
                 userHasVoted,
-            };
+            }
         });
+        console.log(updatedPolls);
+        
 
         const totalPolls = await Poll.countDocuments(filter);
         const stats = await Poll.aggregate(
