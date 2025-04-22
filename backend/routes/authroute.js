@@ -18,7 +18,7 @@ router.post('/upload-image', upload.single('image'), (req,res)=>{
     const date=Date.now();
     console.log(date);
     let filedir=`uploads`
-    let filename=`${filedir}/${date}${req.file.originalname}`
+    let filename=`${filedir}/${date}-${req.file.originalname}`
     renameSync(req.file.path,filename)
     const imgUrl = `${req.protocol}://${req.get('host')}/${filename}`;
     res.status(200).json({message:"File uploaded successfully", imgUrl});
